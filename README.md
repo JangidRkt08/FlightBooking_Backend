@@ -13,17 +13,21 @@ Lets take a look inside the `src` folder
 
 - `controllers`-> they are kind of the last middlewares as post them you call you business layer to execute the budiness logic. In controllers we just receive the incoming requests and data and then pass it to the business layer, and once busines layer returns an output, we structure the API response ingcontroller trollers and send the output.
 
--`repositories` -> this folder contains all the logic which we interact th DB by writing queries, all the raw queries or ORM qureies will go there.
+- `repositories` -> this folder contains all the logic which we interact th DB by writing queries, all the raw queries or ORM qureies will go there.
 
 - `services` -> contains the business logic and interacts with repositories for data from the DB.
 
--`utils` -> contains helper methods, error classes etc.
+- `utils` -> contains helper methods, error classes etc.
 
 ### Setup the project 
 
 - Download this template from github and open it in your favourite text editor.
 
-- In the root directory create a env` file and add the following env variables
+```
+npm install
+```
+
+- In the root directory create a `.env` file and add the following env variables
 ```
 PORT=<port number of your choice>
 ```
@@ -31,7 +35,13 @@ ex:
 ```
 PORT=3000
 ```
-- Inside the 'src/config folder create a file named as 'config.json and write them following code: 
+- go inside  the `src` folder axecute the following command:
+```
+npx sequelize init
+```
+
+- by executing the above command you will get migration, seeders folder and config.json inside config folder.
+<!-- - Inside the 'src/config folder create a file named as `config.json` and write them following code: 
 
 ```
 {
@@ -57,7 +67,13 @@ PORT=3000
     "dialect": "mysql"
   }
 }
-```
+``` -->
 - If your setting up your development env, then write the username of your db, password of your db and in dialect mention whatever db you are using for ex: mysql, maraidb, etc.
 
 - If you're setting up test or prod environment, make sure you also replace the host with hosted url
+
+- to run the server
+
+```
+npm run dev
+```
