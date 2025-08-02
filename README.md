@@ -77,3 +77,10 @@ npx sequelize init
 ```
 npm run dev
 ```
+
+<!-- ```
+- npx sequelize db:create
+- npx sequelize model:create --name Airplane --attributes modelNumber:string,capacity:integer
+- npx sequelize db:migrate
+
+``` -->
