@@ -296,83 +296,93 @@ Let's take a look inside the `src` folder:
 - **Development**: Nodemon for auto-restart
 
 ---
-<!-- 
-## Future Development Plans
 
-### Phase 9: Enhanced Features (Planned)
-1. **Authentication & Authorization**
-   - JWT token implementation
-   - User roles and permissions
-   - Protected routes
 
-2. **Additional Entities**
-   - Flight management
-   - Booking system
-   - User management
-   - Airport management
+## Development Journey (Continued)
 
-3. **Advanced Features**
-   - Search and filtering
-   - Pagination
-   - Sorting capabilities
-   - Advanced validation
+### Phase 9: Complete CRUD Operations Implementation
 
-4. **Testing**
-   - Unit tests for services
-   - Integration tests for API endpoints
-   - Database testing
+**Date: August 18, 2024**
 
-5. **Documentation**
-   - API documentation with Swagger
-   - Code documentation
-   - Deployment guides
+#### What was implemented:
+1. **Enhanced API Endpoints**
+   - **GET /api/v1/airplanes/:id**: Retrieve specific airplane by ID
+   - **DELETE /api/v1/airplanes/:id**: Delete specific airplane by ID
+   - **Enhanced Error Handling**: Proper 404 responses for non-existent resources
 
-### Phase 10: Production Readiness (Planned)
-1. **Performance Optimization**
-   - Database indexing
-   - Caching strategies
-   - Query optimization
+2. **Repository Layer Improvements** (`src/repositories/crud-repository.js`)
+   - **Enhanced destroy(data)**: Added validation to check if resource exists before deletion
+   - **Enhanced get(data)**: Added validation to check if resource exists before retrieval
+   - **Error Handling**: Proper AppError throwing with NOT_FOUND status codes
+   - **Resource Validation**: Prevents operations on non-existent resources
 
-2. **Security Enhancements**
-   - Input sanitization
-   - Rate limiting
-   - CORS configuration
+3. **Service Layer Enhancements** (`src/services/airplane-service.js`)
+   - **getAirplane(id)**: New service method for retrieving specific airplane
+   - **destroyAirplane(id)**: New service method for deleting specific airplane
+   - **Enhanced Error Handling**: Specific error handling for NOT_FOUND scenarios
+   - **Error Propagation**: Proper error bubbling from repository to service layer
 
-3. **Monitoring & Logging**
-   - Application monitoring
-   - Error tracking
-   - Performance metrics
+4. **Controller Layer Extensions** (`src/controllers/airplane-controller.js`)
+   - **getAirplane(req, res)**: New controller method for single airplane retrieval
+   - **destroyAirplane(req, res)**: New controller method for airplane deletion
+   - **Enhanced Documentation**: Added JSDoc comments for all controller methods
+   - **Consistent Response Format**: All endpoints now return standardized responses
 
-4. **Deployment**
-   - Docker containerization
-   - CI/CD pipeline
-   - Environment-specific configurations
+5. **Route Configuration Updates** (`src/routes/v1/airplane-routes.js`)
+   - **New Routes**: Added GET and DELETE routes with ID parameters
+   - **Route Organization**: Proper route ordering (specific routes before generic ones)
+   - **API Documentation**: Clear comments for each endpoint
 
----
+#### Why this was important:
+- **Complete CRUD Operations**: Now supports all Create, Read, Update, Delete operations
+- **Resource Management**: Proper handling of individual resource operations
+- **Error Handling**: Comprehensive error handling for edge cases
+- **API Completeness**: Full RESTful API implementation
+- **User Experience**: Clear error messages for non-existent resources
+- **Data Integrity**: Prevents operations on invalid resources
 
-## Development Notes
-
-### Key Design Decisions:
-1. **Layered Architecture**: Clear separation between routes, controllers, services, and repositories
-2. **Error Handling**: Centralized error management with proper HTTP status codes
-3. **Response Standardization**: Consistent API response format
-4. **Database Migrations**: Version-controlled database schema changes
-5. **API Versioning**: Foundation for future API evolution
-
-### Best Practices Implemented:
-1. **Single Responsibility Principle**: Each module has a single, well-defined purpose
-2. **Dependency Injection**: Services depend on repositories, not direct database access
-3. **Error Propagation**: Errors bubble up through layers with proper context
-4. **Configuration Management**: Environment-specific configurations
-5. **Logging**: Structured logging for debugging and monitoring
-
-### Lessons Learned:
-1. **Planning Architecture**: Proper planning of folder structure saves time in long run
-2. **Error Handling**: Centralized error handling reduces code duplication
-3. **Validation**: Input validation at middleware level prevents invalid data processing
-4. **Response Consistency**: Standardized response format improves frontend integration
-5. **Database Design**: Proper migration strategy ensures data integrity
+#### Technical Improvements:
+- **404 Error Handling**: Proper HTTP status codes for resource not found
+- **Error Propagation**: Consistent error handling across all layers
+- **Code Documentation**: Better code readability with JSDoc comments
+- **Route Parameter Handling**: Proper handling of URL parameters
+- **Response Consistency**: Uniform response format across all endpoints
 
 ---
+
+## Current Implementation Status (Updated - August 18, 2024)
+
+### ✅ Completed Features:
+1. **Complete Express Server** with proper middleware setup
+2. **Configuration Management** with environment variables and logging
+3. **Database Layer** with Sequelize ORM, migrations, and seeders
+4. **Repository Pattern** with enhanced CRUD operations and error handling
+5. **Service Layer** with complete business logic and error handling
+6. **Controller Layer** with full CRUD operations and proper request/response handling
+7. **Middleware** for request validation
+8. **Routing** with complete API endpoints and versioning support
+9. **Utility Layer** with standardized responses and error handling
+10. **Complete CRUD API** for Airplane entity
+
+### 🔧 Current API Endpoints:
+- **POST /api/v1/airplanes** - Create new airplane
+- **GET /api/v1/airplanes** - Get all airplanes
+- **GET /api/v1/airplanes/:id** - Get specific airplane by ID
+- **DELETE /api/v1/airplanes/:id** - Delete specific airplane by ID
+
+### 📊 Database Schema:
+- **Airplanes Table** with modelNumber and capacity fields
+- **Sample Data** with Boeing 737 and 747 entries
+- **Complete CRUD Operations** with proper error handling
+
+### 🛠️ Technical Stack:
+- **Backend**: Node.js with Express
+- **Database**: MySQL with Sequelize ORM
+- **Logging**: Winston with file and console transports
+- **Development**: Nodemon for auto-restart
+- **Error Handling**: Custom AppError class with HTTP status codes
+
+---  
+
 -->
-*This document will be updated as the project evolves. Each new development phase will be documented here with detailed explanations of what was implemented, why it was important, and how it contributes to the overall project goals.*  
+*This document will be updated as the project evolves. Each new development phase will be documented here with detailed explanations of what was implemented, why it was important, and how it contributes to the overall project goals.*
