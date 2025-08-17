@@ -5,7 +5,6 @@ const router = express.Router();
 const {AirplaneMiddlewares} = require('../../middlewares')
 
 // /api/v1/airplanes : POST
-// console.log("Inside airplane routes");
 router.post('/',
     AirplaneMiddlewares.validateCreateRequest,
     AirplaneController.createAirplane)
@@ -14,5 +13,13 @@ router.post('/',
 // /api/v1/airplanes : GET    
 router.get('/',
     AirplaneController.getAirplanes)
+
+// /api/v1/airplanes/:id : GET
+router.get('/:id',
+    AirplaneController.getAirplane)
+
+// /api/v1/airplanes/:id : DELETE
+router.delete('/:id',
+    AirplaneController.destroyAirplane)
 
 module.exports = router
