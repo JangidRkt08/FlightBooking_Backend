@@ -62,6 +62,10 @@ Let's take a look inside the `src` folder:
    npx sequelize init
    ```
    - By executing the above command you will get migration, seeders folder and config.json inside config folder.
+   - **Additional Commands for Database Creation**:
+     ```bash
+     npx sequelize db:create
+     ```
 
 5. **Database Configuration:**
    - If you're setting up your development env, then write the username of your db, password of your db and in dialect mention whatever db you are using for ex: mysql, mariadb, etc.
@@ -130,17 +134,28 @@ Let's take a look inside the `src` folder:
      - `modelNumber`: String (required, default: '')
      - `capacity`: Integer (default: 0)
      - `createdAt` and `updatedAt`: Timestamps
+   - **Terminal Commands Used**:
+     ```bash
+     npx sequelize model:generate --name Airplane --attributes modelNumber:string,capacity:integer
+     npx sequelize db:migrate
+     ```
 
 2. **Sequelize Model**
    - Created `src/models/airplane.js`
    - Defined model structure with validation rules
    - Set up associations (currently empty, ready for future relationships)
+   - **Model Generation**: Automatically created by Sequelize CLI command
 
 3. **Database Seeding**
    - Created seeder file: `20250814193945-add-airplanes.js`
    - Pre-populated with sample data:
      - Boeing 737 (capacity: 200)
      - Boeing 747 (capacity: 300)
+   - **Terminal Commands Used**:
+     ```bash
+     npx sequelize seed:generate --name add-airplanes
+     npx sequelize db:seed:all
+     ```
 
 #### Why this was important:
 - **Version Control for Database**: Migrations provide database schema versioning
@@ -308,30 +323,56 @@ Let's take a look inside the `src` folder:
 1. **Enhanced API Endpoints**
    - **GET /api/v1/airplanes/:id**: Retrieve specific airplane by ID
    - **DELETE /api/v1/airplanes/:id**: Delete specific airplane by ID
+   - **PUT /api/v1/airplanes/:id**: Update specific airplane by ID
    - **Enhanced Error Handling**: Proper 404 responses for non-existent resources
 
 2. **Repository Layer Improvements** (`src/repositories/crud-repository.js`)
    - **Enhanced destroy(data)**: Added validation to check if resource exists before deletion
    - **Enhanced get(data)**: Added validation to check if resource exists before retrieval
+   - **Enhanced update(id, data)**: Added validation to check if resource exists before update
    - **Error Handling**: Proper AppError throwing with NOT_FOUND status codes
    - **Resource Validation**: Prevents operations on non-existent resources
 
 3. **Service Layer Enhancements** (`src/services/airplane-service.js`)
    - **getAirplane(id)**: New service method for retrieving specific airplane
    - **destroyAirplane(id)**: New service method for deleting specific airplane
+   - **updateAirplane(id, data)**: New service method for updating specific airplane
    - **Enhanced Error Handling**: Specific error handling for NOT_FOUND scenarios
    - **Error Propagation**: Proper error bubbling from repository to service layer
 
 4. **Controller Layer Extensions** (`src/controllers/airplane-controller.js`)
    - **getAirplane(req, res)**: New controller method for single airplane retrieval
    - **destroyAirplane(req, res)**: New controller method for airplane deletion
+   - **updateAirplane(req, res)**: New controller method for airplane updates
    - **Enhanced Documentation**: Added JSDoc comments for all controller methods
    - **Consistent Response Format**: All endpoints now return standardized responses
 
 5. **Route Configuration Updates** (`src/routes/v1/airplane-routes.js`)
-   - **New Routes**: Added GET and DELETE routes with ID parameters
+   - **New Routes**: Added GET, DELETE, and PUT routes with ID parameters
    - **Route Organization**: Proper route ordering (specific routes before generic ones)
    - **API Documentation**: Clear comments for each endpoint
+   - **Complete RESTful API**: All CRUD operations now available
+
+6. **New Database Entity - City** (`src/migrations/20250817192427-create-city.js`)
+   - **Cities Table**: Created new table for city management
+   - **Table Structure**:
+     - `id`: Auto-incrementing primary key
+     - `name`: String field (required, unique constraint)
+     - `createdAt` and `updatedAt`: Timestamps
+   - **Migration Commands**: Proper up/down migration support
+   - **Terminal Commands Used**:
+     ```bash
+     npx sequelize model:generate --name City --attributes name:string
+     npx sequelize db:migrate
+     ```
+
+7. **City Model Implementation** (`src/models/city.js`)
+   - **City Model**: Defined model structure with validation rules
+   - **Field Validation**: 
+     - `name`: Required field with unique constraint
+   - **Model Associations**: Ready for future relationships
+   - **Auto-registration**: Model automatically registered in `src/models/index.js`
+   - **Model Generation**: Automatically created by Sequelize CLI command
 
 #### Why this was important:
 - **Complete CRUD Operations**: Now supports all Create, Read, Update, Delete operations
@@ -340,6 +381,10 @@ Let's take a look inside the `src` folder:
 - **API Completeness**: Full RESTful API implementation
 - **User Experience**: Clear error messages for non-existent resources
 - **Data Integrity**: Prevents operations on invalid resources
+- **Data Modification**: Ability to update existing resources
+- **Flight Booking Foundation**: Cities are essential for flight booking systems
+- **Scalability**: Foundation for airport and route management
+- **Business Logic**: Enables source and destination city management
 
 #### Technical Improvements:
 - **404 Error Handling**: Proper HTTP status codes for resource not found
@@ -347,6 +392,10 @@ Let's take a look inside the `src` folder:
 - **Code Documentation**: Better code readability with JSDoc comments
 - **Route Parameter Handling**: Proper handling of URL parameters
 - **Response Consistency**: Uniform response format across all endpoints
+- **Migration Strategy**: Proper database versioning with up/down migrations
+- **Model Validation**: Sequelize validation rules for data integrity
+- **Unique Constraints**: Database-level uniqueness enforcement for city names
+- **Auto-registration**: Models automatically loaded from directory
 
 ---
 
@@ -363,15 +412,18 @@ Let's take a look inside the `src` folder:
 8. **Routing** with complete API endpoints and versioning support
 9. **Utility Layer** with standardized responses and error handling
 10. **Complete CRUD API** for Airplane entity
+11. **City Entity** with database migration and model
 
 ### 🔧 Current API Endpoints:
 - **POST /api/v1/airplanes** - Create new airplane
 - **GET /api/v1/airplanes** - Get all airplanes
 - **GET /api/v1/airplanes/:id** - Get specific airplane by ID
+- **PUT /api/v1/airplanes/:id** - Update specific airplane by ID
 - **DELETE /api/v1/airplanes/:id** - Delete specific airplane by ID
 
 ### 📊 Database Schema:
 - **Airplanes Table** with modelNumber and capacity fields
+- **Cities Table** with name field (unique constraint)
 - **Sample Data** with Boeing 737 and 747 entries
 - **Complete CRUD Operations** with proper error handling
 
