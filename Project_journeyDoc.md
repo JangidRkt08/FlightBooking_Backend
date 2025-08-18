@@ -382,35 +382,51 @@ Let's take a look inside the `src` folder:
 
 9. **City Service Implementation** (`src/services/city-service.js`)
    - **createCity(data)**: Creates new city with comprehensive error handling
+   - **getCities()**: Retrieves all cities with error handling
+   - **getCity(id)**: Retrieves specific city by ID with 404 error handling
+   - **updateCity(id, data)**: Updates specific city with validation and 404 error handling
+   - **destroyCity(id)**: Deletes specific city with 404 error handling
    - **Error Handling**: Specific handling for Sequelize validation and unique constraint errors
    - **Validation Error Processing**: Extracts and formats validation error messages
    - **Custom Error Responses**: Proper error messages and status codes for different error types
    - **Error Types Handled**:
      - `SequelizeUniqueConstraintError`: Handles duplicate city name attempts
      - `SequelizeValidationError`: Handles validation rule violations
+     - `NOT_FOUND`: Handles requests for non-existent cities
      - Generic errors: Fallback error handling for unexpected issues
 
 10. **City Controller Implementation** (`src/controllers/city-controller.js`)
     - **createCity(req, res)**: Handles POST requests for city creation
-    - **Request Processing**: Extracts city name from request body
+    - **getCities(req, res)**: Handles GET requests for retrieving all cities
+    - **getCity(req, res)**: Handles GET requests for retrieving specific city by ID
+    - **updateCity(req, res)**: Handles PUT requests for updating specific city
+    - **destroyCity(req, res)**: Handles DELETE requests for deleting specific city
+    - **Request Processing**: Extracts data from request body and parameters
     - **Service Integration**: Calls city service for business logic execution
     - **Response Standardization**: Returns consistent success and error response format
-    - **HTTP Status Codes**: Proper status codes (201 for creation)
+    - **HTTP Status Codes**: Proper status codes (201 for creation, 200 for retrieval/update/delete)
     - **Error Propagation**: Proper error handling from service layer
-    - **JSDoc Documentation**: Clear API documentation for endpoint usage
+    - **JSDoc Documentation**: Clear API documentation for all endpoint usage
 
 11. **City Middleware Implementation** (`src/middlewares/city-middleware.js`)
     - **validateCreateRequest(req, res, next)**: Validates city creation requests
-    - **Required Field Validation**: Ensures city name is present in request body
+    - **validateUpdateRequest(req, res, next)**: Validates city update requests
+    - **Required Field Validation**: Ensures city name is present in request body for both create and update
     - **Error Response**: Returns proper error response for validation failures
     - **HTTP Status Codes**: Returns 400 (Bad Request) for validation errors
     - **Input Sanitization**: Prevents invalid data from reaching business logic
+    - **Consistent Validation**: Same validation logic for both create and update operations
 
 12. **City Routes Implementation** (`src/routes/v1/city-routes.js`)
     - **POST /cities**: Create new city endpoint
-    - **Middleware Integration**: Validation middleware applied to POST requests
-    - **Route Organization**: Clean separation of city-specific routes
+    - **GET /cities**: Retrieve all cities endpoint
+    - **GET /cities/:id**: Retrieve specific city by ID endpoint
+    - **PUT /cities/:id**: Update specific city endpoint
+    - **DELETE /cities/:id**: Delete specific city endpoint
+    - **Middleware Integration**: Validation middleware applied to POST and PUT requests
+    - **Route Organization**: Clean separation of city-specific routes with proper ordering
     - **API Versioning**: Properly integrated with v1 API structure
+    - **Complete RESTful API**: All CRUD operations available for city entity
 
 #### Why this was important:
 - **Complete CRUD Operations**: Now supports all Create, Read, Update, Delete operations
@@ -466,6 +482,10 @@ Let's take a look inside the `src` folder:
 - **PUT /api/v1/airplanes/:id** - Update specific airplane by ID
 - **DELETE /api/v1/airplanes/:id** - Delete specific airplane by ID
 - **POST /api/v1/cities** - Create new city
+- **GET /api/v1/cities** - Get all cities
+- **GET /api/v1/cities/:id** - Get specific city by ID
+- **PUT /api/v1/cities/:id** - Update specific city by ID
+- **DELETE /api/v1/cities/:id** - Delete specific city by ID
 
 ### 📊 Database Schema:
 - **Airplanes Table** with modelNumber and capacity fields
