@@ -374,6 +374,22 @@ Let's take a look inside the `src` folder:
    - **Auto-registration**: Model automatically registered in `src/models/index.js`
    - **Model Generation**: Automatically created by Sequelize CLI command
 
+8. **City Repository Implementation** (`src/repositories/city-repository.js`)
+   - **City Repository**: Extends generic CRUD repository for city-specific operations
+   - **Inheritance**: Leverages all CRUD operations from base repository
+   - **Specialization**: Ready for city-specific business logic and queries
+   - **Error Handling**: Inherits proper error handling from base repository
+
+9. **City Service Implementation** (`src/services/city-service.js`)
+   - **createCity(data)**: Creates new city with comprehensive error handling
+   - **Error Handling**: Specific handling for Sequelize validation and unique constraint errors
+   - **Validation Error Processing**: Extracts and formats validation error messages
+   - **Custom Error Responses**: Proper error messages and status codes for different error types
+   - **Error Types Handled**:
+     - `SequelizeUniqueConstraintError`: Handles duplicate city name attempts
+     - `SequelizeValidationError`: Handles validation rule violations
+     - Generic errors: Fallback error handling for unexpected issues
+
 #### Why this was important:
 - **Complete CRUD Operations**: Now supports all Create, Read, Update, Delete operations
 - **Resource Management**: Proper handling of individual resource operations
@@ -385,6 +401,9 @@ Let's take a look inside the `src` folder:
 - **Flight Booking Foundation**: Cities are essential for flight booking systems
 - **Scalability**: Foundation for airport and route management
 - **Business Logic**: Enables source and destination city management
+- **Data Validation**: Prevents duplicate city names and invalid data
+- **Error Clarity**: Specific error messages for different validation scenarios
+- **Service Layer Consistency**: Maintains same error handling patterns as airplane service
 
 #### Technical Improvements:
 - **404 Error Handling**: Proper HTTP status codes for resource not found
@@ -412,7 +431,7 @@ Let's take a look inside the `src` folder:
 8. **Routing** with complete API endpoints and versioning support
 9. **Utility Layer** with standardized responses and error handling
 10. **Complete CRUD API** for Airplane entity
-11. **City Entity** with database migration and model
+11. **City Entity** with database migration, model, repository, and service layer
 
 ### 🔧 Current API Endpoints:
 - **POST /api/v1/airplanes** - Create new airplane
