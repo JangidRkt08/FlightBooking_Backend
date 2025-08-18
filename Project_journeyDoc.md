@@ -390,6 +390,28 @@ Let's take a look inside the `src` folder:
      - `SequelizeValidationError`: Handles validation rule violations
      - Generic errors: Fallback error handling for unexpected issues
 
+10. **City Controller Implementation** (`src/controllers/city-controller.js`)
+    - **createCity(req, res)**: Handles POST requests for city creation
+    - **Request Processing**: Extracts city name from request body
+    - **Service Integration**: Calls city service for business logic execution
+    - **Response Standardization**: Returns consistent success and error response format
+    - **HTTP Status Codes**: Proper status codes (201 for creation)
+    - **Error Propagation**: Proper error handling from service layer
+    - **JSDoc Documentation**: Clear API documentation for endpoint usage
+
+11. **City Middleware Implementation** (`src/middlewares/city-middleware.js`)
+    - **validateCreateRequest(req, res, next)**: Validates city creation requests
+    - **Required Field Validation**: Ensures city name is present in request body
+    - **Error Response**: Returns proper error response for validation failures
+    - **HTTP Status Codes**: Returns 400 (Bad Request) for validation errors
+    - **Input Sanitization**: Prevents invalid data from reaching business logic
+
+12. **City Routes Implementation** (`src/routes/v1/city-routes.js`)
+    - **POST /cities**: Create new city endpoint
+    - **Middleware Integration**: Validation middleware applied to POST requests
+    - **Route Organization**: Clean separation of city-specific routes
+    - **API Versioning**: Properly integrated with v1 API structure
+
 #### Why this was important:
 - **Complete CRUD Operations**: Now supports all Create, Read, Update, Delete operations
 - **Resource Management**: Proper handling of individual resource operations
@@ -404,6 +426,10 @@ Let's take a look inside the `src` folder:
 - **Data Validation**: Prevents duplicate city names and invalid data
 - **Error Clarity**: Specific error messages for different validation scenarios
 - **Service Layer Consistency**: Maintains same error handling patterns as airplane service
+- **Request Validation**: Prevents invalid requests from reaching business logic
+- **API Consistency**: Maintains same patterns as airplane endpoints
+- **Input Sanitization**: Ensures data quality at the entry point
+- **Route Organization**: Clean separation of concerns for different entities
 
 #### Technical Improvements:
 - **404 Error Handling**: Proper HTTP status codes for resource not found
@@ -431,7 +457,7 @@ Let's take a look inside the `src` folder:
 8. **Routing** with complete API endpoints and versioning support
 9. **Utility Layer** with standardized responses and error handling
 10. **Complete CRUD API** for Airplane entity
-11. **City Entity** with database migration, model, repository, and service layer
+11. **City Entity** with complete implementation including database migration, model, repository, service, controller, middleware, and routes
 
 ### 🔧 Current API Endpoints:
 - **POST /api/v1/airplanes** - Create new airplane
@@ -439,6 +465,7 @@ Let's take a look inside the `src` folder:
 - **GET /api/v1/airplanes/:id** - Get specific airplane by ID
 - **PUT /api/v1/airplanes/:id** - Update specific airplane by ID
 - **DELETE /api/v1/airplanes/:id** - Delete specific airplane by ID
+- **POST /api/v1/cities** - Create new city
 
 ### 📊 Database Schema:
 - **Airplanes Table** with modelNumber and capacity fields
