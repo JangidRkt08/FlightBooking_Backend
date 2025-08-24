@@ -1,8 +1,8 @@
 const express = require('express')
-const {AirplaneService} = require('../../services')
+// const {AirplaneService} = require('../../services')
 const {CityController} = require('../../controllers')
 const router = express.Router();
-const {AirplaneMiddlewares, CityMiddlewares} = require('../../middlewares')
+const {CityMiddlewares} = require('../../middlewares')
 
 // /api/v1/cities : POST
 router.post('/',
