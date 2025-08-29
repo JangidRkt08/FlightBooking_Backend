@@ -376,6 +376,11 @@ Let's take a look inside the `src` folder:
 
 8. **City Repository Implementation** (`src/repositories/city-repository.js`)
    - **City Repository**: Extends generic CRUD repository for city-specific operations
+   - **Model Integration**: Properly integrated with City model
+   - **Inheritance Pattern**: Demonstrates reusable repository pattern
+
+8. **City Repository Implementation** (`src/repositories/city-repository.js`)
+   - **City Repository**: Extends generic CRUD repository for city-specific operations
    - **Inheritance**: Leverages all CRUD operations from base repository
    - **Specialization**: Ready for city-specific business logic and queries
    - **Error Handling**: Inherits proper error handling from base repository
@@ -429,16 +434,18 @@ Let's take a look inside the `src` folder:
     - **Complete RESTful API**: All CRUD operations available for city entity
 
 #### Why this was important:
-- **Complete CRUD Operations**: Now supports all Create, Read, Update, Delete operations
-- **Resource Management**: Proper handling of individual resource operations
-- **Error Handling**: Comprehensive error handling for edge cases
-- **API Completeness**: Full RESTful API implementation
-- **User Experience**: Clear error messages for non-existent resources
-- **Data Integrity**: Prevents operations on invalid resources
-- **Data Modification**: Ability to update existing resources
+- **Complete CRUD Operations**: Now supports all Create, Read, Update, Delete operations for both Airplane and City entities
+- **Resource Management**: Proper handling of individual resource operations across multiple entities
+- **Error Handling**: Comprehensive error handling for edge cases with entity-specific validation
+- **API Completeness**: Full RESTful API implementation for multiple entities
+- **User Experience**: Clear error messages for non-existent resources and validation failures
+- **Data Integrity**: Prevents operations on invalid resources and enforces unique constraints
+- **Data Modification**: Ability to update existing resources with proper validation
 - **Flight Booking Foundation**: Cities are essential for flight booking systems
-- **Scalability**: Foundation for airport and route management
+- **Scalability**: Foundation for airport and route management with multiple entity support
 - **Business Logic**: Enables source and destination city management
+- **Multi-Entity Architecture**: Demonstrates scalable pattern for adding new entities
+- **Consistent API Design**: Uniform structure across different entity types
 - **Data Validation**: Prevents duplicate city names and invalid data
 - **Error Clarity**: Specific error messages for different validation scenarios
 - **Service Layer Consistency**: Maintains same error handling patterns as airplane service
@@ -460,7 +467,70 @@ Let's take a look inside the `src` folder:
 
 ---
 
-## Current Implementation Status (Updated - August 18, 2024)
+## Development Journey (Continued)
+
+### Phase 10: Complete City CRUD Implementation
+
+**Date: August 24, 2024**
+
+#### What was implemented:
+1. **Complete City CRUD Implementation**
+   - **City Repository** (`src/repositories/city-repository.js`): Extends generic CRUD repository
+   - **City Service** (`src/services/city-service.js`): Complete business logic with error handling
+   - **City Controller** (`src/controllers/city-controller.js`): Full CRUD operations with JSDoc
+   - **City Routes** (`src/routes/v1/city-routes.js`): All CRUD endpoints with middleware
+   - **City Middleware** (`src/middlewares/city-middleware.js`): Validation for create and update operations
+
+2. **Enhanced Error Handling for City Operations**
+   - **Unique Constraint Validation**: Proper handling of duplicate city names
+   - **Validation Error Handling**: Comprehensive error messages for invalid data
+   - **HTTP Status Codes**: Proper status codes (400 for validation, 404 for not found)
+   - **Error Propagation**: Consistent error handling across all layers
+
+3. **Complete City API Endpoints**
+   - **POST /api/v1/cities** - Create new city (with validation)
+   - **GET /api/v1/cities** - Get all cities
+   - **GET /api/v1/cities/:id** - Get specific city by ID
+   - **PUT /api/v1/cities/:id** - Update specific city by ID (with validation)
+   - **DELETE /api/v1/cities/:id** - Delete specific city by ID
+
+4. **Module Registration and Integration**
+   - **Repository Index** (`src/repositories/index.js`): Added CityRepository export
+   - **Service Index** (`src/services/index.js`): Added CityService export
+   - **Controller Index** (`src/controllers/index.js`): Added CityController export
+   - **Middleware Index** (`src/middlewares/index.js`): Added CityMiddlewares export
+   - **Route Integration** (`src/routes/v1/index.js`): Integrated city routes with `/cities` prefix
+
+5. **Terminal Commands Used for City Implementation**
+   ```bash
+   # City CRUD implementation was done through manual file creation
+   # Following the established pattern from Airplane entity
+   # No additional Sequelize CLI commands needed
+   ```
+
+#### Why this was important:
+- **Multi-Entity Architecture**: Demonstrates scalable pattern for adding new entities
+- **Consistent API Design**: Uniform structure across different entity types
+- **Data Validation**: Prevents duplicate city names and invalid data
+- **Error Clarity**: Specific error messages for different validation scenarios
+- **Service Layer Consistency**: Maintains same error handling patterns as airplane service
+- **Request Validation**: Prevents invalid requests from reaching business logic
+- **API Consistency**: Maintains same patterns as airplane endpoints
+- **Input Sanitization**: Ensures data quality at the entry point
+- **Route Organization**: Clean separation of concerns for different entities
+
+#### Technical Improvements:
+- **Scalable Architecture**: Easy to add new entities following the same pattern
+- **Consistent Error Handling**: Uniform approach across all entities
+- **Modular Design**: Each entity is self-contained with its own layers
+- **Reusable Components**: Generic CRUD repository can be extended for new entities
+- **Middleware Validation**: Entity-specific validation for create and update operations
+- **Route Organization**: Clean separation of entity-specific routes
+- **Index Management**: Proper module exports and imports across all layers
+
+---
+
+## Current Implementation Status (Updated - August 24, 2024)
 
 ### ✅ Completed Features:
 1. **Complete Express Server** with proper middleware setup
@@ -481,10 +551,12 @@ Let's take a look inside the `src` folder:
 - **GET /api/v1/airplanes/:id** - Get specific airplane by ID
 - **PUT /api/v1/airplanes/:id** - Update specific airplane by ID
 - **DELETE /api/v1/airplanes/:id** - Delete specific airplane by ID
-- **POST /api/v1/cities** - Create new city
+
+**City Management:**
+- **POST /api/v1/cities** - Create new city (with validation)
 - **GET /api/v1/cities** - Get all cities
 - **GET /api/v1/cities/:id** - Get specific city by ID
-- **PUT /api/v1/cities/:id** - Update specific city by ID
+- **PUT /api/v1/cities/:id** - Update specific city by ID (with validation)
 - **DELETE /api/v1/cities/:id** - Delete specific city by ID
 
 ### 📊 Database Schema:
