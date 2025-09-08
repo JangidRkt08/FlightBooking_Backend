@@ -84,5 +84,32 @@ npm run dev
 - npx sequelize db:migrate
 
 ``` -->
-
-
+<!-- 
+Three level of JOIN in Flight-repository to get filtered Flight alng with airplane, departure_Airport, Arrival_Airport details:-
+if we write mannual query we wrote `ELECT `Flight`.`id`, `Flight`.`flightNumber`, `Flight`.`airplaneId`, `Flight`.`departureAirportId`, `Flight`.`arrivalAirportId`, `Flight`.`arrivalTime`, `Flight`.`departureTime`, `Flight`.`price`, `Flight`.`boardingGate`, `Flight`.`totalSeats`, `Flight`.`createdAt`, `Flight`.`updatedAt`, `airplane_detail`.`id` AS `airplane_detail.id`, `airplane_detail`.`modelNumber` AS `airplane_detail.modelNumber`, `airplane_detail`.`capacity` AS `airplane_detail.capacity`, `airplane_detail`.`createdAt` AS `airplane_detail.createdAt`, `airplane_detail`.`updatedAt` AS `airplane_detail.updatedAt`, `departureAirport`.`id` AS `departureAirport.id`, `departureAirport`.`name` AS `departureAirport.name`, `departureAirport`.`code` AS `departureAirport.code`, `departureAirport`.`address` AS `departureAirport.address`, `departureAirport`.`cityId` AS `departureAirport.cityId`, `departureAirport`.`createdAt` AS `departureAirport.createdAt`, `departureAirport`.`updatedAt` AS `departureAirport.updatedAt`, `arrivalAirport`.`id` AS `arrivalAirport.id`, `arrivalAirport`.`name` AS `arrivalAirport.name`, `arrivalAirport`.`code` AS `arrivalAirport.code`, `arrivalAirport`.`address` AS `arrivalAirport.address`, `arrivalAirport`.`cityId` AS `arrivalAirport.cityId`, `arrivalAirport`.`createdAt` AS `arrivalAirport.createdAt`, `arrivalAirport`.`updatedAt` AS `arrivalAirport.updatedAt` FROM `Flights` AS `Flight` INNER JOIN `Airplanes` AS `airplane_detail` ON `Flight`.`airplaneId` = `airplane_detail`.`id` INNER JOIN `Airports` AS `departureAirport` ON `Flight`.`departureAirportId` = `departureAirport`.`code` INNER JOIN `Airports` AS `arrivalAirport` ON `Flight`.`arrivalAirportId` = `arrivalAirport`.`code` WHERE `Flight`.`departureAirportId` = 'PUN' AND `Flight`.`arrivalAirportId` = 'MUM';` 
+but now it happens only in ` include:[
+                {
+               model: Airplane,
+               required: true,
+               as: "airplane_detail",
+            },
+            {
+                model : Airport,
+                required: true,
+                as: "departureAirport",
+                on :{
+                    col1:Sequelize.where(Sequelize.col('Flight.departureAirportId'), "=",Sequelize.col('departureAirport.code')),
+                    // col2:Sequelize.where(Sequelize.col('Flight.arrivalAirportId'),Sequelize.col('Airports.code'))
+                },
+            },
+             {
+                model : Airport,
+                required: true,
+                as: "arrivalAirport",
+                on :{
+                    col1:Sequelize.where(Sequelize.col('Flight.arrivalAirportId'), "=",Sequelize.col('arrivalAirport.code')),
+                    // col2:Sequelize.where(Sequelize.col('Flight.arrivalAirportId'),Sequelize.col('Airports.code'))
+                },
+            }
+        ]` 
+ -->
