@@ -22,6 +22,8 @@ async function createFlight(data){
     }
 }
 
+
+
 async function getAllFlights(query){
     let customFilter= {};
     let sortFilter = [];
@@ -79,8 +81,24 @@ async function getAllFlights(query){
 
 
 
+async function getFlight(id){
+    try {
+        const flight = await flightRepository.get(id);
+        // if(!airport){
+        //     throw new AppError("Airplane not found",StatusCodes.NOT_FOUND)
+        // }
+        return flight;
+    } catch (error) {
+        if(error.statusCode == StatusCodes.NOT_FOUND){
+            throw new AppError("flight not found",StatusCodes.NOT_FOUND)
+        }
+        throw new AppError("cannot Fetch the flight",StatusCodes.INTERNAL_SERVER_ERROR)
+    }
+}
+
 module.exports = {
     createFlight,
-    getAllFlights
+    getAllFlights,
+    getFlight
    
 }
