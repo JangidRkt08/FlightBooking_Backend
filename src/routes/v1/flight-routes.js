@@ -14,7 +14,7 @@ router.post('/',
 router.get('/',
     FlightController.getAllFlights)
 
-// // /api/v1/airports/:id : GET
+// // /api/v1/flights/:id : GET
 router.get('/:id',
     FlightController.getFlight)
 
@@ -22,8 +22,9 @@ router.get('/:id',
 // router.delete('/:id',
 //     FlightController.destroyAirport)
 
-// // /api/v1/airports/:id : PUT
-// router.put('/:id',
-//     FlightController.updateAirport)
+// // /api/v1/flights/:id/seats : PATCH
+router.patch('/:id/seats',
+    FlightMiddlewares.validateUpdateSeatRequest,
+    FlightController.updateSeats)
 
 module.exports = router
